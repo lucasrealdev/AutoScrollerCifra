@@ -1,0 +1,20 @@
+{
+  "manifest_version": 3,
+  "name": "AutoScroller CifraClub",
+  "version": "1.0",
+  "description": "Detects played chords and performs smart auto-scrolling on CifraClub.",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "host_permissions": ["https://www.cifraclub.com.br/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.cifraclub.com.br/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
