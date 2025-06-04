@@ -5,9 +5,6 @@
   "description": "Detects played chords and performs smart auto-scrolling on CifraClub.",
   "permissions": ["activeTab", "scripting", "storage"],
   "host_permissions": ["https://www.cifraclub.com.br/*"],
-  "background": {
-    "service_worker": "background.js"
-  },
   "content_scripts": [
     {
       "matches": ["https://www.cifraclub.com.br/*"],

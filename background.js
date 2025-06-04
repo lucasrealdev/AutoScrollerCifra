@@ -1,1 +1,0 @@
-// background.js inicial - pode ser expandido depois 
