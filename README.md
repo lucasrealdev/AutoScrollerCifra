@@ -76,6 +76,12 @@ Extensão para navegadores que destaca acordes no CifraClub e faz acompanhamento
 
 ---
 
+## Observação importante sobre o uso do capo
+
+Se você adicionar ou alterar o capo manualmente no Cifra Club, atualize a página para que a extensão recarregue e detecte corretamente o novo valor do capo.
+
+---
+
 ## 👨‍💻 Contribua
 
 Sugestões, melhorias e PRs são bem-vindos!
