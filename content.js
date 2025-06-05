@@ -231,9 +231,9 @@ const CHORD_PROFILE = Array.from({ length: 12 }, (_, root) =>
 class ChordDetector {
   constructor() {
     this.reset();
-    this.bias = 1.16;
+    this.bias = 1.05;
     this.chromaBuffer = [];
-    this.chromaBufferSize = 95;
+    this.chromaBufferSize = 100;
     this.detectionIntervalMs = 350;
   }
 
@@ -356,7 +356,8 @@ function acordeCorresponde(detectado, cifra) {
   if (!detectado || !cifra) return false;
   let detectadoComCapo = detectado;
   if (capoFret && capoFret > 0) {
-    detectadoComCapo = transporAcorde(detectado, parseInt(capoFret, 10));
+    // Transpor o acorde detectado negativamente pelo número de casas do capo
+    detectadoComCapo = transporAcorde(detectado, -parseInt(capoFret, 10));
   }
   return cifra.toUpperCase().includes(detectadoComCapo.toUpperCase()) || detectadoComCapo.toUpperCase().includes(cifra.toUpperCase());
 }
@@ -365,6 +366,19 @@ function acordeCorresponde(detectado, cifra) {
 function detectCapoFret() {
   const capoSpan = document.getElementById('cifra_capo');
   capoFret = capoSpan?.innerText.match(/(\d+)ª casa/)?.[1] || null;
+  if (capoFret === null) {
+    // Procura por span que contenha o texto 'Capotraste na'
+    const spans = document.querySelectorAll('span');
+    for (const span of spans) {
+      if (span.textContent.includes('Capotraste na')) {
+        const b = span.querySelector('b');
+        if (b) {
+          capoFret = b.innerText.match(/(\d+)ª casa/)?.[1] || null;
+          if (capoFret !== null) break;
+        }
+      }
+    }
+  }
 }
 
 function injectControlElements() {
@@ -415,15 +429,36 @@ function injectControlElements() {
 
 function parseCifraLines() {
   const pre = document.querySelector('.cifra_cnt pre');
-  if (!pre) return [];
-  const chords = Array.from(pre.querySelectorAll('b')).filter(b => !b.closest('.tablatura'));
-  const tops = new Map();
-  chords.forEach(chord => {
-    const top = chord.getBoundingClientRect().top;
-    if (!tops.has(top)) tops.set(top, []);
-    tops.get(top).push(chord);
-  });
-  return Array.from(tops.values()).map(line => line.map(el => ({ el, tocado: false })));
+  if (pre) {
+    const chords = Array.from(pre.querySelectorAll('b')).filter(b => !b.closest('.tablatura'));
+    const tops = new Map();
+    chords.forEach(chord => {
+      const top = chord.getBoundingClientRect().top;
+      if (!tops.has(top)) tops.set(top, []);
+      tops.get(top).push(chord);
+    });
+    const linhas = Array.from(tops.values()).map(line => line.map(el => ({ el, tocado: false })));
+    if (linhas.length > 0) return linhas;
+  }
+
+  // Caso não encontre acordes no seletor padrão, busca pelo novo formato
+  // Busca por <pre> com divs de classe '_2Y--k'
+  const preAlt = document.querySelector('pre');
+  if (preAlt) {
+    const divs = preAlt.querySelectorAll('div._2Y--k');
+    const linhas = [];
+    divs.forEach(div => {
+      // Para cada div, pega todos os <b> filhos diretos (acordes na linha)
+      const acordes = Array.from(div.querySelectorAll('b'));
+      if (acordes.length > 0) {
+        linhas.push(acordes.map(el => ({ el, tocado: false })));
+      }
+    });
+    if (linhas.length > 0) return linhas;
+  }
+
+  // Se ainda não encontrou, retorna array vazio
+  return [];
 }
 
 function highlightLine(lineIdx) {
@@ -470,8 +505,9 @@ function updateChordInfo(detected) {
   const info = document.getElementById('chord-info');
   if (capoFret && capoFret > 0 && detected && detected !== 'Nada') {
     const capoNum = parseInt(capoFret, 10);
-    const transposto = transporAcorde(detected, capoNum);
-    info.innerText = `Acorde detectado: ${detected} (${transposto} com capo ${capoNum})`;
+    // Transpor negativamente para mostrar o acorde "na cifra"
+    const transposto = transporAcorde(detected, -capoNum);
+    info.innerText = `Acorde detectado: ${detected} (${transposto} na cifra com capo ${capoNum})`;
   } else {
     info.innerText = `Acorde detectado: ${detected || '--'}`;
   }
