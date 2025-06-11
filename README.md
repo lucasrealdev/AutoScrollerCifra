@@ -2,8 +2,6 @@
 
 Extensão para navegadores que destaca acordes no CifraClub e faz acompanhamento inteligente da cifra conforme você toca, com reconhecimento de áudio e navegação interativa.
 
----
-
 ## 🚀 Instalação (Modo Desenvolvedor)
 
 1. Baixe ou clone este repositório e extraia os arquivos em uma pasta.
@@ -15,7 +13,66 @@ Extensão para navegadores que destaca acordes no CifraClub e faz acompanhamento
    - Acesse `about:debugging#/runtime/this-firefox`.
    - Clique em "Carregar Extensão Temporária" e selecione o arquivo `manifest.json`.
 
+
+## 🔖 Como Usar via Bookmarklet (sem instalar extensão)
+
+Você pode executar a extensão **sem instalar nada** usando um **bookmarklet**, um favorito especial que executa o código direto no navegador.
+
+### 📱 No Celular (Android ou iOS)
+
+> Requer navegador com suporte a favoritos personalizados (como Safari ou Firefox no iOS, ou Kiwi Browser / Firefox no Android)
+
+1. Copie este código JavaScript:
+
+```
+javascript:(function(){
+    if (window.cifraAppInstance) {
+        console.log('CifraApp já está rodando.');
+        return;
+    }
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/gh/lucasrealdev/AutoScrollerCifra@main/content.js';
+    document.body.appendChild(script);
+})()
+```
+
+2. Abra o navegador no seu celular.
+3. Entre no [CifraClub](https://www.cifraclub.com.br/) e adicione qualquer página aos seus **favoritos**.
+4. Vá até os favoritos e **edite o favorito criado**:
+
+   * **Nome:** AutoScroller Inteligente
+   * **URL:** cole o código acima (começando com `javascript:`).
+5. Para usar:
+
+   * Acesse uma cifra no CifraClub.
+   * Abra seus favoritos e clique em **AutoScroller Inteligente** Ou pesquise pelo nome que você deu ao favorito na barra de pesquisa.
+   * O script será carregado e a extensão iniciará automaticamente.
+
 ---
+
+### 💻 No Desktop (Chrome, Edge, Firefox, Brave)
+
+1. Copie o código abaixo:
+
+```
+javascript:(function(){
+    if (window.cifraAppInstance) {
+        console.log('CifraApp já está rodando.');
+        return;
+    }
+    var script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/gh/lucasrealdev/AutoScrollerCifra@main/content.js';
+    document.body.appendChild(script);
+})()
+```
+
+2. Arraste este link para sua barra de favoritos: ➡️
+
+3. Para usar:
+
+   * Acesse o [CifraClub](https://www.cifraclub.com.br/).
+   * Clique no favorito “**AutoScroller Inteligente**”.
+   * A extensão será executada automaticamente na página.
 
 ## 🎯 Como Usar
 

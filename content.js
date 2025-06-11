@@ -682,7 +682,7 @@ class CifraApp {
     // Procura no elemento específico primeiro
     const capoSpan = document.querySelector('#cifra_capo[data-cy="song-capo"]');
     if (capoSpan) {
-      this.capoFret = extractFret(capoSpan.innerText);
+      this.capoFret = extractFret(capoSpan.innerText || "");
       if (this.capoFret && this.chordDetector) this.chordDetector.setCapoFret(this.capoFret);
       return this.capoFret;
     }
