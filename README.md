@@ -79,6 +79,7 @@ javascript:(function(){
 1. **Abra uma cifra no [CifraClub](https://www.cifraclub.com.br/)**.
 2. **Clique em "Começar"** no canto inferior esquerdo.
    - O acompanhamento e a detecção de acordes começam a partir da linha escolhida.
+3. **Esconda tablaturas para enchergar melhor**
 
 ---
 

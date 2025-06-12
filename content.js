@@ -933,8 +933,16 @@ class CifraApp {
         acorde.el.onclick = () => {
           if (!this.isTracking) return;
           
-          // Marca acordes anteriores como tocados
-          this.cifraLines[lineIndex].forEach((a, i) => a.tocado = i < chordIndex);
+          // Marca acordes anteriores como tocados E desmarca os posteriores
+          this.cifraLines.forEach((l, lIdx) => {
+            l.forEach((a, cIdx) => {
+              if (lIdx < lineIndex || (lIdx === lineIndex && cIdx < chordIndex)) {
+                a.tocado = true;
+              } else {
+                a.tocado = false;
+              }
+            });
+          });
           
           this.currentLineIndex = lineIndex;
           this.currentChordIndex = chordIndex;
