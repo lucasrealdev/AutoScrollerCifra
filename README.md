@@ -31,7 +31,7 @@ javascript:(function(){
         return;
     }
     var script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/gh/lucasrealdev/AutoScrollerCifra@main/content.js';
+    script.src = 'https://raw.githack.com/lucasrealdev/AutoScrollerCifra/main/content.js';
     document.body.appendChild(script);
 })()
 ```
@@ -61,7 +61,7 @@ javascript:(function(){
         return;
     }
     var script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/gh/lucasrealdev/AutoScrollerCifra@main/content.js';
+    script.src = 'https://raw.githack.com/lucasrealdev/AutoScrollerCifra/main/content.js';
     document.body.appendChild(script);
 })()
 ```
