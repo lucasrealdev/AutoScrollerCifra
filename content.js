@@ -287,10 +287,10 @@ class ChordDetector {
   constructor() {
     // Configurações de detecção
     this.config = {
-      chromaBufferSize: 100,
+      chromaBufferSize: 90,
       detectionInterval: 100,
       stabilityLength: 5,
-      arpeggioWindowSize: 6,
+      arpeggioWindowSize: 4,
       arpeggioThreshold: 0.45,
       tonicWeight: 2,
       bias: 1
@@ -521,7 +521,7 @@ class ChordDetector {
     const minScore = Math.min(...scores);
     
     // Prioridade 1: Próximo acorde esperado
-    if (nextChordScore && nextChordScore.score <= minScore * 1.01) {
+    if (nextChordScore && nextChordScore.score <= minScore * 1.030) {
       return nextChordScore.index;
     }
 
