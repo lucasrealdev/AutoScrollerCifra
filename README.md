@@ -127,6 +127,10 @@ javascript:(function(){
 
 ---
 
+
+https://github.com/user-attachments/assets/83cbf75b-5114-42b0-8741-2db47fa84d2f
+
+
 ## 💡 Observações
 
 - O sistema é tolerante a ruídos e falhas breves de detecção.
